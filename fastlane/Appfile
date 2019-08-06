@@ -1,0 +1,9 @@
+app_identifier("io.ayecode") # The bundle identifier of your app
+apple_id("info@ayecode.io") # Your Apple email address
+
+itc_team_id("120036942") # App Store Connect Team ID
+team_id("Q8LMTXK89F") # Developer Portal Team ID
+json_key_file "../play-services-json.json"
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
+package_name("io.ayecode.newcastlecountrydown")

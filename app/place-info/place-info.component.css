@@ -1,0 +1,17 @@
+TabView StackLayout,TabView GridLayout{
+    background-color: white;
+    paddding:10;
+}
+.contactInfo{
+    padding-bottom: 5;
+}
+.rating{
+    padding: 0 5;
+    margin-left: 10;
+    vertical-align: center;
+    horizontal-align:left;
+    color:white;
+    border-top-left-radius: 5;
+    border-bottom-right-radius: 5;
+    background-color: rgb(10, 150, 10);
+}

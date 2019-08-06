@@ -1,0 +1,79 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <!-- <Label class="font-awesome first" flexShrink="0" (tap)="onDrawerButtonTap()" text="&#xf0c9;"></Label> -->
+            <Label textAlignment="left" class="action-bar-title" flexGrow="1"
+                [text]="pageTitle"></Label>
+
+            <!-- uncomment below code to add search -->
+            <!-- <Label textAlignment="left" [visibility]="!searchActive?'visible':'collapse'" class="action-bar-title" flexGrow="1" [text]="pageTitle"></Label>
+			<TextField id="searchBar" flexGrow="1" returnKeyType="go" (returnPress)="doSearch($event)" class="actionbar-search action-bar-title"
+			 style.placeholderColor="rgba(255,255,255,0.5)" marginLeft="10" hint="Enter search text" [visibility]="searchActive ? 'visible' : 'collapse'"></TextField> -->
+        </FlexboxLayout>
+    </StackLayout>
+    <!-- uncomment below code to add search -->
+    <!-- <ActionItem *ngIf="!searchActive" (tap)="searchToggle()">
+		<Label class="font-awesome" text="&#xf002;"></Label>
+	</ActionItem>
+	<ActionItem *ngIf="searchActive" (tap)="searchToggle()">
+		<Label class="ion" text="&#xf406;"></Label>
+	</ActionItem> -->
+</ActionBar>
+
+<!-- <RadSideDrawer id="drawer"> -->
+<!-- <GridLayout tkDrawerContent class="drawer-content" columns="auto,*" rows="*,auto">
+		<ListView row="0" colSpan="2" [items]="this.catUtil.categories">
+			<ng-template let-cat="item">
+				<Label (tap)="loadCatPosts(cat)" [text]="cat.count ? cat.name + '('+ cat.count +')':cat.name" textWrap="true" class="catNavItem"></Label>
+			</ng-template>
+		</ListView>
+		<Label row="1" col="0" class="ion navItem" (tap)="goToSettings()" verticalAlignment="center" padding="10 0 10 25" horizontalAlignment="left"
+		 fontSize="26" text="&#xf4a7;"></Label>
+		<Label row="1" col="1" verticalAlignment="center" (tap)="goToSettings()" class="navItem" textAlignment="left" text="Settings"></Label>
+	</GridLayout> -->
+<!-- <Label *ngFor="let cat of this.catUtil.categories" (tap)="loadCatPosts(cat)" [text]="cat.count ? cat.name + '('+ cat.count +')':cat.name" textWrap="true" class="catNavItem"></Label> -->
+<!-- </StackLayout> -->
+
+<!-- </ScrollView> -->
+<GridLayout tkMainContent class="placesList" rows="*,auto" columns="*">
+    <!-- <ListView *ngIf="settingUtil.settings.view=='Card View'" row="0" id="list" class="placesList" [items]="places" (loadMoreItems)="loadNextPage($event)"> -->
+    <RadListView row="0" id="list" class="placesList" [items]="places"
+        loadOnDemandMode="Auto" (loadMoreDataRequested)="loadNextPage($event)">
+        <ng-template tkListItemTemplate let-j="index" let-place="item">
+            <!-- <ng-template let-j="index" let-place="item"> -->
+            <!-- <StackLayout> -->
+
+            <GridLayout shadow="2" cornerRadius="10" [class.even]="j%2==0"
+                class="placeContainer card" columns="auto,*,auto" rows="auto,auto,auto,auto"
+                (tap)="goToPlaceInfo(place)">
+                <Image row="0" borderRadius="10" col="0" colSpan="2" class="full_image"
+                    [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
+                <Image  *ngIf="isIOS" row="0" borderRadius="10" col="0" colSpan="2" class="full_image"
+                    [src]="place.images[1].thumbnail"></Image>
+                <NSImg *ngIf="!isIOS" roundedCornerRadius="10"
+                    roundTopLeft="true" roundTopRight="true" row="0" width="100%"
+                    col="0" colSpan="2" class="full_image" [src]="place.images[1].thumbnail"></NSImg>
+                <Label row="0" col="0" colSpan="2" class="placeRating"
+                    verticalAlignment="bottom" horizontalAlignment="right"
+                    [text]="place.rating.toString().length<2?place.rating+'.0':place.rating"></Label>
+                <Label row="1" col="0" colSpan="2" textWrap="true" class="placeTitle"
+                    verticalAlignment="top" [text]="place.title.rendered"></Label>
+                <Label row="2" col="0" colSpan="2" class="placeCatNames"
+                    verticalAlignment="bottom" [text]="getCatNames(place)"></Label>
+            </GridLayout>
+            <!-- </StackLayout> -->
+        </ng-template>
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical"
+            spanCount="2"></ListViewGridLayout>
+    </RadListView>
+
+    <!-- </ListView> -->
+
+    <ActivityIndicator row="0" [busy]="isLoadingData" [visibility]="isLoadingData&&currentPage==1?'visible':'collapse'"
+        horizontalAlignment="center" [verticalAlignment]="'center'">
+    </ActivityIndicator>
+    <!-- <ActivityIndicator row="1" [busy]="isLoadingData" [visibility]="isLoadingData&&currentPage>1?'visible':'collapse'" horizontalAlignment="center"
+	 [verticalAlignment]="'bottom'">
+	</ActivityIndicator> -->
+</GridLayout>
+<!-- </RadSideDrawer> -->

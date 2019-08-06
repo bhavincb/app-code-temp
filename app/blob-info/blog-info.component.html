@@ -1,0 +1,78 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="ion first" flexShrink="0" (tap)="goBack()" text="&#xf27d;"></Label>
+            <Label textAlignment="left" 
+                class="action-bar-title" flexGrow="1" [text]="blog.title.rendered"></Label>
+        </FlexboxLayout>
+    </StackLayout>
+    <ActionItem (tap)="share()">
+        <Label class="font-awesome" text="&#xf1e0;"></Label>
+    </ActionItem>
+</ActionBar>
+
+<ScrollView (scroll)="onScroll($event)">
+    <GridLayout *ngIf="blog.comment_count!=undefined" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto"
+        columns="auto,*,auto" minHeight="100" class="blogContainer blogInfoContent">
+        <Image row="0" col="0" colSpan="3" class="full_image" [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
+        <NSImg row="0" width="100%" col="0" colSpan="3" class="full_image"
+            [src]="blog.featured_img"></NSImg>
+
+        <Image row="1" rowSpan="2" col="0" verticalAlignment="center" class="aurthor_image"
+            [src]="'~/shared/imgs/user-48.png'" (tap)="goToAutorInfo(blog.author)"></Image>
+        <NSImg row="1" rowSpan="2" col="0" verticalAlignment="center"
+            (tap)="goToAutorInfo(blog.author)" roundAsCircle="true"
+            actualImageScaleType="centerCrop" class="aurthor_image"
+            [src]="blog.author_img"></NSImg>
+
+        <Label (tap)="goToAutorInfo(blog.author)" row="1" col="1" class="aurthor_title"
+            verticalAlignment="center" [text]="blog.author.name"></Label>
+        <Label (tap)="goToAutorInfo(blog.author)" row="2" col="1"
+            verticalAlignment="center" [text]="blog.displayDate"></Label>
+        <WebView row="3" col="0" maxWidth="100%" colSpan="3" [src]="'<head><style>img{max-width:100%;}</style><body>'+blog.content.rendered+'</body>'"
+            class="blogContent"></WebView>
+        <Label row="4" col="0" colSpan="3" *ngIf="!isLoadedClicked&&!isLoading&&blog.comment_count.approved>='1'"
+            [text]="'Load '+ blog.comment_count.approved +' Comments'" (tap)="loadComments()"
+            id="loadComments"></Label>
+        <Label row="4" col="0" colSpan="3" *ngIf="blog.comment_count.approved=='0'"
+            [text]="'No Comments'" id="loadComments"></Label>
+        <ActivityIndicator row="4" col="0" colSpan="3" horizontalAlignment="center"
+            [busy]="isLoading" [visibility]="isLoading&&blog.comment_count.approved>='1'?'visible':'collapse'"></ActivityIndicator>
+        <StackLayout row="4" col="0" colSpan="3" *ngIf="isLoadedClicked&&blog.isCommentsLoaded&&blog.comments.length>0"
+            class="commentsList">
+            <GridLayout *ngFor="let comment of blog.comments" [ngClass]="{'childComment':comment.parent , 'parentComment':!comment.parent}"
+                columns="auto,auto, *" [paddingLeft]="20*comment.depth" rows="auto,auto,auto">
+                <Image row="0" rowSpan="3" col="0" verticalAlignment="top"
+                    class="aurthor_image" [src]="'~/shared/imgs/user-48.png'"></Image>
+                <NSImg row="0" rowSpan="3" col="0" verticalAlignment="top"
+                    roundAsCircle="true" actualImageScaleType="centerCrop"
+                    class="aurthor_image" [src]="comment.author_img"></NSImg>
+                <Label class="aurthor_title" verticalAlignment="center" row="0"
+                    colSpan="2" col="1" [text]="comment.author_name"></Label>
+                <Label verticalAlignment="center" row="1" col="1" [text]="comment.displayDate"></Label>
+                <Label verticalAlignment="center" (tap)="doSelectReplyComment(comment)"
+                    horizontalAlignment="left" paddingLeft="20" row="1" col="2"
+                    text="Reply"></Label>
+                <WebView *ngIf="comment.parent" colSpan="2" row="2" col="1"
+                    [src]="'<head><style>img{max-width:100%;}body{background-color:#f4f4f4;color:rgba(0,0,0,0.5);}</style><body>'+comment.content.rendered+'</body>'"></WebView>
+                <WebView *ngIf="!comment.parent" colSpan="2" row="2" col="1"
+                    [src]="'<head><style>img{max-width:100%;}body{background-color:#cccccc;color:rgba(0,0,0,0.7);}</style><body>'+comment.content.rendered+'</body>'"></WebView>
+            </GridLayout>
+        </StackLayout>
+        <TextView [text]="commentText" row="5" col="0" colSpan="3" flexGrow="1"
+            (blur)="commentBoxBlur($event)" (textChange)="commentChange($event)"
+            [hint]="commentHintText" id="commentBox" autocorrect="true"
+            returnKeyType="done" class="commentBox"></TextView>
+        <Button col="0" colSpan="3" row="6" textAlignment="center"
+            verticalAlignment="bottom" class="commentBtn" (tap)="doComment()"
+            text="Post Comment"></Button>
+        <Label col="0" colSpan="3" row="7" textAlignment="center"
+            horizontalAlignment="center" verticalAlignment="bottom" class="replyCancelText"
+            (tap)="cancelCommentReply()" *ngIf="selectedComment!=null" text="Cancel Reply"></Label>
+    </GridLayout>
+    <GridLayout height="100%" rows="*" *ngIf="blog.comment_count==undefined">
+        <ActivityIndicator verticalAlignment="center" row="0"
+            horizontalAlignment="center" [busy]="blog.comment_count==undefined"
+            [visibility]="blog.comment_count==undefined?'visible':'collapse'"></ActivityIndicator>
+    </GridLayout>
+</ScrollView>

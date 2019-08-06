@@ -1,0 +1,37 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="ion first" flexShrink="0" (tap)="goBack()" text="&#xf27d;"></Label>
+            <Label textAlignment="left" class="action-bar-title" flexGrow="1"
+                [text]="gdPage.title.rendered"></Label>
+            <!-- <TextField returnKeyType="go" (returnPress)="doSearch($event)"
+                class="actionbar-search action-bar-title" hint="enter search text"
+                [visibility]="searchActive ? 'visible' : 'collapse'"></TextField> -->
+        </FlexboxLayout>
+    </StackLayout>
+    <!-- <ActionItem (tap)="share()">
+        <Label class="font-awesome" text="&#xf1e0;"></Label>
+    </ActionItem> -->
+</ActionBar>
+
+<!-- <ScrollView> -->
+<GridLayout rows="*" columns="*" width="100%" backgroundColor="yellow" height="100%"
+    class="pageContainer pageInfoContent">
+    <!-- <Image row="0" col="0" colSpan="3" class="full_image" [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image> -->
+
+    <WebView row="0" backgroundColor="red" *ngIf="gdPage.status!=undefined"
+        col="0"  [src]="'<head><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css><style>body{margin:0;padding:0}img{max-width:100%;}body>div{width:100%;position:absolute;height:100%;border:none}</style><body><div>'+gdPage.content.rendered+'</div></body>'"
+            class="pageContent"></WebView>
+    <!-- <WebView row="0" backgroundColor="red" *ngIf="gdPage.status!=undefined"
+        col="0" [src]="'<head><style>body{margin:0;padding:0}img{max-width:100%;}body>iframe{width:100%;position:absolute;height:100%;border:none}</style><body><iframe src='+gdPage.link+'></iframe></body>'"
+        class="pageContent"></WebView> -->
+    <ActivityIndicator *ngIf="gdPage.status==undefined" verticalAlignment="center"
+        row="0" horizontalAlignment="center" [busy]="gdPage.status==undefined"
+        [visibility]="gdPage.status==undefined?'visible':'collapse'"></ActivityIndicator>
+</GridLayout>
+<!-- <GridLayout height="100%" rows="*" *ngIf="gdPage.status==undefined">
+        <ActivityIndicator verticalAlignment="center" row="0"
+            horizontalAlignment="center" [busy]="gdPage.status==undefined"
+            [visibility]="gdPage.status==undefined?'visible':'collapse'"></ActivityIndicator>
+    </GridLayout> -->
+<!-- </ScrollView> -->

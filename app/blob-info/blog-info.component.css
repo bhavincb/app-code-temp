@@ -1,0 +1,48 @@
+.aurthor_image {
+    margin: 0 10;
+    margin-top: 10;
+    height: 48;
+    width: 48;
+    border-radius: 50%;
+}
+WebView{
+    max-width: 100%;
+    width: 100%;
+}
+.aurthor_title{
+    margin-top:10;
+}
+.blogContent{
+    margin-top:15;
+}
+#loadComments{
+    font-size: 20;
+    margin:15 0;
+    horizontal-align:center;
+}
+.commentsList .aurthor_image {
+    margin:0 20 0 10;
+}
+.commentsList WebView{
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+ 
+.full_image{
+    width:100%;
+}
+.commentBox{
+    background-color: #f4f4f4;
+    border-color: #DEDEDE;
+    border-width: 1;
+    min-height: 130;
+    margin:15 5 10 5;
+    /* margin-top: 15;
+    padding-left: 3;
+    padding-right:3; */
+}
+.replyCancelText{
+    color:darkgray;
+    margin: 10 0;
+}

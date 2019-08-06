@@ -1,0 +1,174 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="font-awesome first" flexShrink="0" (tap)="onDrawerButtonTap()"
+                text="&#xf0c9;"></Label>
+            <Label textAlignment="left" [visibility]="!searchActive?'visible':'collapse'"
+                class="action-bar-title" flexGrow="1" [text]="pageTitle"></Label>
+            <TextField id="searchBar" flexGrow="1" returnKeyType="go"
+                (returnPress)="doSearch($event)" class="actionbar-search action-bar-title"
+                style.placeholderColor="rgba(255,255,255,0.5)" marginLeft="10"
+                hint="Enter search text" [visibility]="searchActive ? 'visible' : 'collapse'"></TextField>
+        </FlexboxLayout>
+    </StackLayout>
+    <ActionItem *ngIf="!searchActive" (tap)="searchToggle()">
+        <Label class="font-awesome" text="&#xf002;"></Label>
+    </ActionItem>
+    <ActionItem *ngIf="searchActive" (tap)="searchToggle()">
+        <Label class="ion" text="&#xf406;"></Label>
+    </ActionItem>
+    <ActionItem *ngIf="catID!=''" (tap)="loadCatPosts({id:'',name:'All'},false)">
+        <Label class="action-item" text="All"></Label>
+    </ActionItem>
+</ActionBar>
+
+<RadSideDrawer id="drawer">
+    <GridLayout tkDrawerContent class="drawer-content" columns="auto,auto,auto,*"
+        rows="auto,auto,auto,*,auto">
+        <!-- <ListView row="0" colSpan="2" [items]="this.menusUtil.menus">
+            <ng-template let-menuItem="item">
+                <Label [text]="menuItem.title" textWrap="true" class="catNavItem"></Label>
+            </ng-template>
+        </ListView> -->
+        <!-- <ScrollView> -->
+        <!-- <Label text="working"></Label> -->
+        <Image row="0" col="0" rowSpan="2" colSpan="2" *ngIf="settingUtil.settings.leftDrawerLogo"
+            marginLeft="15" padding="10 0" verticalAlignment="center" class="drawer-logo"
+            horizontalAlignment="center" [src]="'~/shared/imgs/user-48.png'"></Image>
+        <Image row="0" col="0" rowSpan="2" colSpan="2" *ngIf="settingUtil.settings.leftDrawerLogo&&isIOS"
+            marginLeft="15" padding="10 0" verticalAlignment="center" class="drawer-logo"
+            horizontalAlignment="center" [src]="settingUtil.settings.leftDrawerLogo"></Image>
+        <NSImg roundAsCircle="true" actualImageScaleType="centerCrop"
+            horizontalAlignment="center" row="0" col="0" colSpan="2" rowSpan="2"
+            verticalAlignment="center" class="drawer-logo" padding="10 0"
+            [src]="settingUtil.settings.leftDrawerLogo" marginLeft="15"
+            *ngIf="settingUtil.settings.leftDrawerLogo&&!isIOS"></NSImg>
+
+
+        <Label row="0" [col]="settingUtil.settings.leftDrawerLogo?2:0" *ngIf="settingUtil.settings.leftDrawerTitle"
+            padding="10 15 0 5" [colSpan]="settingUtil.settings.leftDrawerLogo?2:4"
+            class="drawer-title" verticalAlignment="bottom" textWrap="true"
+            [marginLeft]="settingUtil.settings.leftDrawerLogo?0:10" [text]="settingUtil.settings.leftDrawerTitle"></Label>
+        <Label row="1" [col]="settingUtil.settings.leftDrawerLogo?2:0" *ngIf="settingUtil.settings.leftDrawerTitle&&settingUtil.settings.leftDrawerTagline"
+            padding="0 15 10 5" [colSpan]="settingUtil.settings.leftDrawerLogo?2:4"
+            class="drawer-tagline" verticalAlignment="top" textWrap="true"
+            [marginLeft]="settingUtil.settings.leftDrawerLogo?0:10" opacity="0.7"
+            [text]="settingUtil.settings.leftDrawerTagline"></Label>
+        <StackLayout row="2" col="0" colSpan="4" class="hr-dark m-x-10"></StackLayout>
+        <StackLayout row="3" col="0" colSpan="4" *ngFor="let menu of menusUtil.menus;let i=index">
+            <ScrollView>
+                <GridLayout *ngIf="i==pageIndex" [rows]="generateRows(menu.elements.length+2)"
+                    columns="auto,auto,*,auto" [ngClass]="{'slide-in-right':isChildNav,'slide-in-left':!isChildNav}">
+                    <Label col="1" colSpan="3" row="0" *ngIf="menu.parentIndex!=-1"
+                        opacity="0.5" [text]="menusUtil.menus[menu.parentIndex].elements[menu.parentElementIndex].title"
+                        textWrap="true" class="catNavItem" (tap)="selectParentPage(menu)"></Label>
+                    <Label row="0" col="0" *ngIf="menu.parentIndex!=-1" class="ion catNavItem"
+                        (tap)="selectParentPage(menu)" verticalAlignment="center"
+                        opacity="0.5" padding="10 0 10 25"
+                        horizontalAlignment="left" fontSize="26" text="&#xf3cf;"></Label>
+                    <Label *ngFor="let menuItem of menu.elements;let j=index"
+                        col="0" [colSpan]="menuItem.children.length>0?3:4"
+                        (tap)="goToMenuLink(menuItem)" [text]="menuItem.title"
+                        textWrap="true" class="catNavItem" [row]="j+1"></Label>
+                    <Label [row]="j+1" col="3" *ngFor="let item of menu.elements;let j=index"
+                        class="ion catNavItem" (tap)="selectChildPage(item)"
+                        [visibility]="item.children.length>0?'visible':'collapse'"
+                        verticalAlignment="center" padding="10 25 10 10"
+                        horizontalAlignment="right" fontSize="26" text="&#xf3d1;"></Label>
+                </GridLayout>
+            </ScrollView>
+        </StackLayout>
+        <!-- </ScrollView> -->
+        <Label row="4" col="0" colSpan="4" verticalAlignment="center" (tap)="goToSettings()"
+            paddingLeft="50" class="navItem" textAlignment="left" text="Settings(V2.45)"></Label>
+        <Label row="4" col="0" colSpan="1" class="ion navItem" (tap)="goToSettings()"
+            verticalAlignment="center" padding="10 15 10 15"
+            horizontalAlignment="left" fontSize="26" text="&#xf4a7;"></Label>
+
+    </GridLayout>
+    <GridLayout tkMainContent class="blogsList homeContent" rows="*,auto"
+        columns="*">
+        <ListView *ngIf="settingUtil.settings.view=='Card View'" row="0" id="list"
+            class="blogsList" [items]="blogs" (loadMoreItems)="loadNextPage($event)">
+            <ng-template let-j="index" let-blog="item">
+                <StackLayout>
+                    <GridLayout class="blogContainer card" columns="auto,*,auto"
+                        rows="auto,auto,auto,auto" (tap)="goToBlogInfo(blog)">
+                        <Image row="0" col="0" colSpan="2" class="full_image"
+                            [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
+                        <Image *ngIf="isIOS" row="0" col="0" colSpan="2"
+                            class="full_image" [src]="blog.featured_img"></Image>
+                        <NSImg *ngIf="!isIOS" row="0" width="100%" col="0"
+                            colSpan="2" class="full_image" [src]="blog.featured_img"></NSImg>
+                        <Label row="0" col="0" colSpan="2" textWrap="true"
+                            class="blogTitle" verticalAlignment="top" [text]="blog.title.rendered"></Label>
+                        <Label row="0" col="0" horizontalAlignment="left"
+                            colSpan="2" class="blogCatNames"
+                            verticalAlignment="bottom" [text]="getCatNames(blog)"></Label>
+
+                        <Image row="1" rowSpan="3" col="0" (tap)="goToAutorInfo(blog.author)"
+                            verticalAlignment="center" class="aurthor_image"
+                            [src]="'~/shared/imgs/user-48.png'"></Image>
+                        <Image *ngIf="isIOS" row="1" rowSpan="3" col="0"
+                            (tap)="goToAutorInfo(blog.author)"
+                            verticalAlignment="center" class="aurthor_image"
+                            [src]="blog.author_img"></Image>
+                        <NSImg *ngIf="!isIOS" roundAsCircle="true"
+                            (tap)="goToAutorInfo(blog.author)"
+                            actualImageScaleType="centerCrop" row="1" rowSpan="3"
+                            col="0" verticalAlignment="center" class="aurthor_image"
+                            [src]="blog.author_img"></NSImg>
+
+
+                        <Label row="1" col="1" class="aurthor_title"
+                            verticalAlignment="bottom" [text]="blog.author.name"></Label>
+                        <Label row="2" col="1" class="displayDate"
+                            verticalAlignment="center" [text]="blog.displayDate"></Label>
+                        <Label row="3" col="1" class="commentCount"
+                            verticalAlignment="center" [text]="'Comments: '+blog.comment_count.approved"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+        <ListView *ngIf="settingUtil.settings.view=='List View'" row="0" id="list"
+            class="list blogsList" [items]="blogs" (loadMoreItems)="loadNextPage($event)">
+            <ng-template let-j="index" let-blog="item">
+                <StackLayout>
+                    <GridLayout class="blogContainer list" columns="auto,*,auto"
+                        rows="auto,auto,auto" (tap)="goToBlogInfo(blog)">
+                        <Label row="0" col="1" colSpan="2" textWrap="true"
+                            class="blogTitle" verticalAlignment="bottom"
+                            [text]="blog.title.rendered"></Label>
+                        <Label row="1" col="1" horizontalAlignment="left"
+                            colSpan="2" paddingRight="15" class="blogCatNames"
+                            verticalAlignment="center" [text]="getCatNames(blog)"></Label>
+
+                        <Image row="0" rowSpan="3" col="0" verticalAlignment="top"
+                            class="featuredThumbnail" [src]="'~/shared/imgs/user-48.png'"></Image>
+                        <Image *ngIf="isIOS" row="0" rowSpan="3" col="0"
+                            verticalAlignment="top" class="featuredThumbnail"
+                            [src]="blog.featuredThumbnail"></Image>
+                        <NSImg *ngIf="!isIOS" roundAsCircle="false"
+                            actualImageScaleType="centerCrop" row="0" rowSpan="3"
+                            col="0" verticalAlignment="top" class="featuredThumbnail"
+                            [src]="blog.featuredThumbnail"></NSImg>
+
+                        <Label row="0" rowSpan="3" col="0" textAlignment="center"
+                            textWrap="true" class="aurthor_title width68"
+                            verticalAlignment="top" [text]="blog.author.name"></Label>
+                        <Label row="2" col="1" verticalAlignment="center"
+                            class="m-5" [text]="blog.displayDate"></Label>
+                        <Label row="2" col="2" class="m-5" paddingRight="15"
+                            verticalAlignment="center" [text]="'Comments: '+blog.comment_count.approved"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+        <ActivityIndicator row="0" [busy]="isLoadingData" [visibility]="isLoadingData&&currentPage==1?'visible':'collapse'"
+            horizontalAlignment="center" [verticalAlignment]="'center'">
+        </ActivityIndicator>
+        <ActivityIndicator row="1" [busy]="isLoadingData" [visibility]="isLoadingData&&currentPage>1?'visible':'collapse'"
+            horizontalAlignment="center" [verticalAlignment]="'bottom'">
+        </ActivityIndicator>
+    </GridLayout>
+</RadSideDrawer>

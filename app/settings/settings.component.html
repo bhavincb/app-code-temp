@@ -1,0 +1,17 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="ion first" flexShrink="0" (tap)="goBack()" text="&#xf27d;"></Label>
+            <Label textAlignment="left" class="action-bar-title" flexGrow="1"
+                [text]="'Settings'"></Label>
+        </FlexboxLayout>
+    </StackLayout>
+</ActionBar>
+<GridLayout rows="auto,auto" class="actionContainer" columns="auto,*">
+    <Label row="0" col="0" text="Base URL:" textAlignment="left" class="actionTitle"></Label>
+    <Label row="0" col="1" [text]="url.base" (tap)="promptAppBase()"
+        textAlignment="left" class="action" textWrap="true"></Label>
+    <Label row="1" col="0" text="Feed View:" textAlignment="left" class="actionTitle"></Label>
+    <Label row="1" col="1" [text]="settingUtil.settings.view" (tap)="showOptions()"
+        textAlignment="right" class="action"></Label>
+</GridLayout>

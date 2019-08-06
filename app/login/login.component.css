@@ -1,0 +1,9 @@
+Button{
+    background-color: #ff6e00;
+    color:#fff;
+    padding-top:0;
+    padding-bottom: 0;
+}
+.errorText{
+    color: red;
+}

@@ -1,0 +1,12 @@
+.aurthor_main_image {
+    /* margin: 0 10; */
+    margin-top: 10;
+    height: 144;
+    width: 144;
+    border-radius: 50%;
+}
+.aurthor_main_title{
+    /* margin-top:10; */
+    font-size: 25;
+    font-weight: bold;
+}

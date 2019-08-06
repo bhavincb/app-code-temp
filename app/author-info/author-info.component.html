@@ -1,0 +1,113 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="ion first" flexShrink="0" (tap)="goBack()" text="&#xf27d;"></Label>
+            <Label textAlignment="left" class="action-bar-title" flexGrow="1"
+                [text]="author.name"></Label>
+        </FlexboxLayout>
+
+    </StackLayout>
+</ActionBar>
+
+<ListView *ngIf="settingUtil.settings.view=='Card View'" id="list" row="2"
+    class="blogsList" [items]="blogs" (loadMoreItems)="loadNextPage($event)">
+    <ng-template let-j="index" let-blog="item">
+        <StackLayout>
+            <GridLayout *ngIf="j==0" columns="*,auto,*" rows="auto,auto,auto,auto"
+                class="m-b-5">
+
+                <NSImg colSpan="3" *ngIf="author.thumbnail"
+                    roundAsCircle="true" actualImageScaleType="centerCrop"
+                    row="0" col="0" horizontalAlignment="center"
+                    verticalAlignment="center" class="aurthor_main_image"
+                    [src]="author.thumbnail"></NSImg>
+                <NSImg colSpan="3" *ngIf="author.image" roundAsCircle="true"
+                    actualImageScaleType="centerCrop" row="0" col="0"
+                    horizontalAlignment="center" backgroundColor="white"
+                    verticalAlignment="center" class="aurthor_main_image"
+                    [src]="author.image+'?s='+imageSize"></NSImg>
+                <Label colSpan="3" row="1" col="0" class="aurthor_main_title"
+                    verticalAlignment="center" horizontalAlignment="center"
+                    [text]="author.name"></Label>
+                <StackLayout row="2" col="0" class="hr-light m-y-10"></StackLayout>
+                <Label row="2" col="1" horizontalAlignment="center" text="Posts"
+                    class="m-10"></Label>
+                <StackLayout row="2" col="2" class="hr-light m-y-10"></StackLayout>
+            </GridLayout>
+            <GridLayout class="blogContainer card" columns="auto,*,auto" rows="auto,auto,auto,auto"
+                (tap)="goToBlogInfo(blog)">
+                <Image row="0" col="0" colSpan="2" class="full_image" [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
+                <NSImg row="0" width="100%" col="0" colSpan="2" class="full_image"
+                    [src]="blog.featured_img"></NSImg>
+                <Label row="0" col="0" colSpan="2" textWrap="true" class="blogTitle"
+                    verticalAlignment="top" [text]="blog.title.rendered"></Label>
+                <Label row="0" col="0" horizontalAlignment="left" colSpan="2"
+                    class="blogCatNames" verticalAlignment="bottom" [text]="getCatNames(blog)"></Label>
+
+                <Image row="1" rowSpan="3" col="0" verticalAlignment="center"
+                    class="aurthor_image" [src]="'~/shared/imgs/user-48.png'"></Image>
+                <NSImg roundAsCircle="true" actualImageScaleType="centerCrop"
+                    row="1" rowSpan="3" col="0" verticalAlignment="center"
+                    class="aurthor_image" [src]="blog.author_img"></NSImg>
+
+
+                <Label row="1" col="1" class="aurthor_title"
+                    verticalAlignment="bottom" [text]="blog.author.name"></Label>
+                <Label row="2" col="1" class="displayDate" verticalAlignment="center"
+                    [text]="blog.displayDate"></Label>
+                <Label row="3" col="1" class="commentCount" verticalAlignment="center"
+                    [text]="'Comments: '+blog.comment_count.approved"></Label>
+            </GridLayout>
+        </StackLayout>
+    </ng-template>
+</ListView>
+<ListView *ngIf="settingUtil.settings.view=='List View'" id="list" class="list blogsList"
+    [items]="blogs" (loadMoreItems)="loadNextPage($event)">
+    <ng-template let-j="index" let-blog="item">
+        <StackLayout>
+            <GridLayout *ngIf="j==0" columns="*,auto,*" rows="auto,auto,auto,auto"
+                class="m-b-5">
+
+                <NSImg colSpan="3" *ngIf="author.thumbnail"
+                    roundAsCircle="true" actualImageScaleType="centerCrop"
+                    row="0" col="0" horizontalAlignment="center"
+                    verticalAlignment="center" class="aurthor_main_image"
+                    [src]="author.thumbnail"></NSImg>
+                <NSImg colSpan="3" *ngIf="author.image" roundAsCircle="true"
+                    actualImageScaleType="centerCrop" row="0" col="0"
+                    horizontalAlignment="center" backgroundColor="white"
+                    verticalAlignment="center" class="aurthor_main_image"
+                    [src]="author.image+'?s='+imageSize"></NSImg>
+                <Label colSpan="3" row="1" col="0" class="aurthor_main_title"
+                    verticalAlignment="center" horizontalAlignment="center"
+                    [text]="author.name"></Label>
+                <StackLayout row="2" col="0" class="hr-light m-y-10"></StackLayout>
+                <Label row="2" col="1" horizontalAlignment="center" text="Posts"
+                    class="m-10"></Label>
+                <StackLayout row="2" col="2" class="hr-light m-y-10"></StackLayout>
+            </GridLayout>
+            <GridLayout class="blogContainer list" columns="auto,*,auto" rows="auto,auto,auto"
+                (tap)="goToBlogInfo(blog)">
+                <Label row="0" col="1" colSpan="2" textWrap="true" class="blogTitle"
+                    verticalAlignment="bottom" [text]="blog.title.rendered"></Label>
+                <Label row="1" col="1" horizontalAlignment="left" colSpan="2"
+                    paddingRight="15" class="blogCatNames" verticalAlignment="center"
+                    [text]="getCatNames(blog)"></Label>
+
+                <Image row="0" rowSpan="3" col="0" verticalAlignment="top"
+                    class="featuredThumbnail" [src]="'~/shared/imgs/user-48.png'"></Image>
+                <NSImg roundAsCircle="false" actualImageScaleType="centerCrop"
+                    row="0" rowSpan="3" col="0" verticalAlignment="top" class="featuredThumbnail"
+                    [src]="blog.featuredThumbnail"></NSImg>
+
+                <Label row="0" rowSpan="3" col="0" textAlignment="center"
+                    textWrap="true" class="aurthor_title width68"
+                    verticalAlignment="top" [text]="blog.author.name"></Label>
+                <Label row="2" col="1" verticalAlignment="center" class="m-5"
+                    [text]="blog.displayDate"></Label>
+                <Label row="2" col="2" class="m-5" paddingRight="15"
+                    verticalAlignment="center" [text]="'Comments: '+blog.comment_count.approved"></Label>
+            </GridLayout>
+        </StackLayout>
+    </ng-template>
+</ListView>

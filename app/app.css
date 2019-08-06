@@ -1,0 +1,242 @@
+/*
+In NativeScript, the app.css file is where you place CSS rules that
+you would like to apply to your entire application. Check out
+http://docs.nativescript.org/ui/styling for a full list of the CSS
+selectors and properties you can use to style UI components.
+
+/*
+For example, the following CSS rule changes the font size of all UI
+components that have the btn class name.
+*/
+.btn {
+    font-size: 18;
+}
+.ion{
+    font-family: "Ionicons", ionicons;
+}
+
+
+ActionBar {
+    background-color:  #3C5AFD;
+    color: white;
+}
+ActionBar .actionbar-search.action-bar-title{
+    background-color: #3C5AFD;
+    color: white;
+}
+.drawer-content {
+    background-color: #053140;
+    /* padding-bottom: 20; */
+}
+.drawer-content .drawer-title{
+    font-size: 20;
+}
+.drawer-content .drawer-tagline{
+    font-size: 15;
+}
+.drawer-content .drawer-logo{
+    margin: 0 10;
+    /* margin-top: 10; */
+    height: 48;
+    width: 48;
+    border-radius: 50%;
+}
+.drawer-content Label {
+    font-size: 20;
+    padding: 10 15 10 15;
+    /* color: white; */
+}
+.drawer-content Label.navItem{
+    background-color: white;
+    color:darkgray;
+}
+
+.font-awesome {
+    font-family: "FontAwesome";
+}
+
+ActionBar Label.font-awesome,ActionBar Label.ion, ActionBar Label.action-item{
+    padding: 0 15;
+    font-size: 18;
+}
+ActionBar Label.first{
+    padding:0;
+}
+ActionBar .action-bar-title{
+    font-size: 20;
+    padding-left:15; 
+}
+ActionBar Label.ion{
+    font-size: 27;
+}
+/*
+In many cases you may want to use the NativeScript core theme instead
+of writing your own CSS rules. For a full list of class names in the theme
+refer to http://docs.nativescript.org/ui/theme.
+*/
+@import '~nativescript-theme-core/css/core.light.css';
+
+/* Home.component.css */
+.homeContent .blogsList {
+    background-color: #ffffff;
+}
+.homeContent .list.blogsList{
+    
+}
+.homeContent .list.blogContainer{
+    padding-bottom:0; 
+    margin-bottom: 0;
+}
+.homeContent .blogContainer{
+    /* will work only with RadListView */
+    /* margin-bottom: 15; */
+    background-color: #f4f4f4f4;
+    padding-bottom:10;
+}
+.homeContent .aurthor_image {
+    margin: 0 10;
+    margin-top: 10;
+    height: 48;
+    width: 48;
+    border-radius: 50%;
+}
+.homeContent .aurthor_title{
+    margin-top:10;
+}
+.homeContent .blogTitle,.homeContent .blogCatNames{
+    color:white;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5;
+}
+.homeContent .blogTitle{
+    text-wrap:true;
+    font-size: 18;
+}
+.homeContent .blogCatNames{
+    font-size:14;
+}
+.homeContent .full_image{
+    width:100%;
+}
+/* .list .aurthor_image{
+    margin-top:0;
+} */
+.homeContent .list .featuredThumbnail{
+    margin: 0 10;
+    margin-top: 10;
+    height: 48;
+    width: 48;
+}
+.homeContent .list .blogTitle,.homeContent .list .blogCatNames{
+    background-color: transparent;
+    padding: 0;
+}
+.homeContent .list .blogTitle{
+    color:rgba(0,0,0,0.7);
+    margin-top:10;
+    padding-right: 15;   
+}
+.homeContent .list .blogCatNames{
+    color: rgba(0,0,0,0.5);
+    padding: 0;
+    margin: 0;
+    /* background-color: red; */
+}
+.homeContent .list .aurthor_title{
+    margin-top:58;
+}
+.homeContent .width68{
+    width:80;
+}
+.homeContent .m-5{
+    margin: 0;
+    margin-top:-5;
+    /* background-color: blue; */
+    /* font-size:12; */
+}
+
+/* blog-info.component.css */
+.blogInfoContent .childComment {
+    /* using inline styling */
+    /* padding-left: 20; */
+    /* background-color: #f4f4f4; */
+}
+.blogInfoContent .parentComment{
+    /* using inline styling */
+    padding-left:0;
+    /* background-color: #cccccc; */
+}
+.blogInfoContent .childComment,.blogInfoContent .parentComment{
+    border-bottom-width: 1;
+    border-bottom-color: rgba(0,0,0,0.1);
+}
+
+/* author-info.component.css */
+.blogsList {
+    background-color: #ffffff;
+}
+.list.blogsList{
+    
+}
+.list.blogContainer{
+    padding-bottom:0; 
+    margin-bottom: 0;
+}
+.blogContainer{
+    /* will work only with RadListView */
+    /* margin-bottom: 15; */
+    background-color: #f4f4f4f4;
+    padding-bottom:10;
+}
+.blogContainer .aurthor_image {
+    margin: 0 10;
+    margin-top: 10;
+    height: 48;
+    width: 48;
+    border-radius: 50%;
+}
+.blogContainer .aurthor_title{
+    margin-top:10;
+}
+.blogContainer .blogTitle,.blogContainer .blogCatNames{
+    color:white;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5;
+}
+.blogContainer .blogTitle{
+    text-wrap:true;
+    font-size: 18;
+}
+.blogContainer .blogCatNames{
+    font-size:14;
+}
+.blogContainer .full_image{
+    width:100%;
+}
+/* .list .aurthor_image{
+    margin-top:0;
+} */
+.list .featuredThumbnail{
+    margin: 0 10;
+    margin-top: 10;
+    height: 48;
+    width: 48;
+}
+.list .blogTitle,.list .blogCatNames{
+    background-color: transparent;
+    padding: 0;
+}
+.list .blogTitle{
+    color:rgba(0,0,0,0.7);
+    margin-top:10;
+    padding-right: 15;   
+}
+.list .blogCatNames{
+    color: rgba(0,0,0,0.5);
+    padding: 0;
+    margin: 0;
+    /* background-color: red; */
+}
+.list .aurthor_title{
+    margin-top:58;
+}

@@ -1,0 +1,25 @@
+<ScrollView>
+	<GridLayout rows="auto, auto,auto,auto,auto" class="container" columns="*" padding="50 24">
+		<Image class="userImage"  width="90" height="90" row="0" horizontalAlignment="center"
+		 stretch="aspectFill" borderRadius="50%" margin="30 0 30 0" [src]="'~/images/logo.jpg'"></Image>
+
+		<StackLayout verticalAlignment="top" row="1">
+			<RadDataForm tkExampleTitle tkToggleNavButton  commitMode="Immediate" validationMode="Immediate"
+                 #signInForm [source]="userSource">
+				<TKEntityProperty tkDataFormProperty name="email" [readOnly]="page==2" displayName="" hintText="E-mail" index="0">
+					<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+					<TKEmailValidator tkEntityPropertyValidators></TKEmailValidator>
+				</TKEntityProperty>
+				<TKEntityProperty tkDataFormProperty name="password" displayName="" hintText="Password" index="1">
+					<TKPropertyEditor tkEntityPropertyEditor type="Password"></TKPropertyEditor>
+				</TKEntityProperty>
+
+			</RadDataForm>
+
+		</StackLayout>
+		<Label *ngIf="isErrorVisible" row="2" textWrap="true" class=" m-l-20 m-r-15 errorText" [text]="errorText"></Label>
+		<Button width="40%" horizontalAlignment="center" marginTop="30" height="38" marginRight="10" borderRadius="5" fontSize="18"
+		 textTransform="none" [text]="'Login'" row="3" (tap)="goToNext()"
+		 col="1"></Button>
+	</GridLayout>
+</ScrollView>

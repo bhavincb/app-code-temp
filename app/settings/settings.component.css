@@ -1,0 +1,11 @@
+.actionTitle,.action{
+    background-color: #f4f4f4;
+    font-size: 18;
+    padding: 10 15;
+}
+.action{
+    color: black;
+}
+.actionContainer{
+    margin-top: 10;
+}

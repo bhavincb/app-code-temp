@@ -1,0 +1,103 @@
+<ActionBar>
+    <StackLayout>
+        <FlexboxLayout alignItems="center" width="100%">
+            <Label class="ion first" flexShrink="0" (tap)="goBack()" text="&#xf27d;"></Label>
+            <Label textAlignment="left" class="action-bar-title" flexGrow="1"
+                [text]="place.title.rendered"></Label>
+        </FlexboxLayout>
+
+    </StackLayout>
+</ActionBar>
+<!-- <GridLayout class="page"> -->
+<ScrollView #scrollView (scroll)="onScroll($event, scrollView, topView)">
+    <GridLayout rows="auto,*,auto">
+        <Image row="0" borderRadius="10" col="0" colSpan="2" height="200"
+            class="full_image" [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
+        <Image *ngIf="isIOS" row="0" #topView borderRadius="10" col="0"
+            colSpan="2" height="200" class="full_image" [src]="place.featured_image.thumbnail"></Image>
+        <NSImg *ngIf="!isIOS" #topView roundedCornerRadius="10"
+            roundTopLeft="true" roundTopRight="true" row="0" width="100%"
+            height="200" col="0" colSpan="2" class="full_image" [src]="place.featured_image.thumbnail"></NSImg>
+        <TabView row="1" [height]="screenHeight-80">
+            <GridLayout rows="auto,auto,auto,auto" columns="auto,*" padding="10"
+                *tabItem="{title: 'Profile',textTransform:'none'}">
+                <Label row="0" col="0" class="h2" [text]="place.title.rendered"></Label>
+                <Label row="0" col="1" class="h3 rating" [text]="place.rating.toString().length<2?place.rating+ '.0':place.rating"></Label>
+                <Label row="1" col="0" colSpan="2" textWrap="true" class="p-10"
+                    text="Tart muffin marshmallow marzipan cake. Brownie liquorice marzipan chupa chups wafer jelly beans liquorice candy cake. Lollipop icing halvah marzipan candy canes liquorice. Sesame snaps brownie dessert chocolate bar wafer brownie. Cupcake gingerbread tiramisu jelly liquorice jujubes gummi bears. Cotton candy marshmallow cotton candy tiramisu jelly sweet caramels marshmallow halvah. Chupa chups muffin candy. Tart topping dessert sweet dessert dragée cake cupcake chupa chups. Gummies tootsie roll dragée jelly beans candy canes jelly-o chocolate carrot cake. Powder jelly beans topping pie danish gummies jelly. jelly-o sesame snaps danish sweet roll marshmallow halvah croissant chupa chups. Cookie gummi bears jelly-o cake marshmallow danish chupa chups cotton candy. Carrot cake marshmallow sweet."></Label>
+                <Label row="2" col="0" colSpan="2" textWrap="true" class="p-10"
+                    text="Gummi bears carrot cake fruitcake cookie jelly-o jelly beans. Gummi bears jelly beans sugar plum. Marzipan cookie pie wafer cupcake cake. Bonbon tiramisu toffee chocolate bar toffee ice cream gummies. Pastry marshmallow lollipop marshmallow chupa chups tiramisu candy powder. Brownie chupa chups biscuit biscuit bonbon icing pastry. Icing liquorice cupcake gingerbread cupcake. Tiramisu marzipan chocolate bar lollipop gummi bears bonbon. Powder wafer pudding chocolate cake jelly toffee. Halvah carrot cake oat cake sugar plum candy jelly-o. Cookie toffee toffee marzipan lollipop dragée donut. Chupa chups jelly-o candy cotton candy bear claw sweet roll tart."></Label>
+                <!-- <Label row="3" col="0" colSpan="2" textWrap="true" class="p-10" text="Tart muffin marshmallow marzipan cake. Brownie liquorice marzipan chupa chups wafer jelly beans liquorice candy cake. Lollipop icing halvah marzipan candy canes liquorice. Sesame snaps brownie dessert chocolate bar wafer brownie. Cupcake gingerbread tiramisu jelly liquorice jujubes gummi bears. Cotton candy marshmallow cotton candy tiramisu jelly sweet caramels marshmallow halvah. Chupa chups muffin candy. Tart topping dessert sweet dessert dragée cake cupcake chupa chups. Gummies tootsie roll dragée jelly beans candy canes jelly-o chocolate carrot cake. Powder jelly beans topping pie danish gummies jelly. jelly-o sesame snaps danish sweet roll marshmallow halvah croissant chupa chups. Cookie gummi bears jelly-o cake marshmallow danish chupa chups cotton candy. Carrot cake marshmallow sweet."></Label> -->
+            </GridLayout>
+            <GridLayout rows="auto,auto,auto,auto,auto,auto,auto,auto,auto"
+                padding="10" columns="*,auto" *tabItem="{title: 'Contact',textTransform:'none'}">
+                <Label row="0" class="h4 contactInfo" col="0" *ngIf="place.phone"
+                    text="Phone:"></Label>
+                <Label row="0" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.phone" [text]="place.phone"></Label>
+
+                <Label row="1" class="h4 contactInfo" col="0" *ngIf="place.email"
+                    text="Email:"></Label>
+                <Label row="1" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.email" [text]="place.email"></Label>
+
+                <Label row="2" class="h4 contactInfo" col="0" *ngIf="place.website"
+                    text="Website:"></Label>
+                <Label row="2" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.website" [text]="place.website"></Label>
+
+                <Label row="3" class="h4 contactInfo" col="0" *ngIf="place.twitter"
+                    text="Twitter:"></Label>
+                <Label row="3" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.twitter" [text]="place.twitter"></Label>
+
+                <Label row="4" class="h4 contactInfo" col="0" *ngIf="place.facebook"
+                    text="Facebook:"></Label>
+                <Label row="4" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.facebook" [text]="place.facebook"></Label>
+
+                <Label row="5" class="h4 contactInfo" col="0" *ngIf="place.street"
+                    text="Address:"></Label>
+                <Label row="5" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.street" [text]="place.street+'\n'+place.city+', '+place.region+'\n'+place.country+' - '+place.zip"></Label>
+
+                <Label row="6" class="h4 contactInfo" col="0" *ngIf="place.latitude"
+                    text="Latitude:"></Label>
+                <Label row="6" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.latitude" [text]="place.latitude"></Label>
+
+                <Label row="7" class="h4 contactInfo" col="0" *ngIf="place.longitude"
+                    text="Longitude:"></Label>
+                <Label row="7" class="h4 contactInfo" textWrap="true" col="1"
+                    *ngIf="place.longitude" [text]="place.longitude"></Label>
+            </GridLayout>
+            <GridLayout [visibility]="!isIOS?'visible':'collapse'" [rows]="generateImagesRowString(place)"
+                columns="*,*,*" *tabItem="{title: 'Photos',textTransform:'none'}">
+                <NSImg [row]="((i-(i%3))/3)" *ngFor="let image of place.images;let i=index"
+                    [col]="i%3" class="full_image" [height]="photosHeight"
+                    [width]="photosHeight" [src]="image.thumbnail"></NSImg>
+            </GridLayout>
+            <GridLayout [rows]="generateImagesRowString(place)" [visibility]="isIOS?'visible':'collapse'"
+                columns="*,*,*" *tabItem="{title: 'Photos',textTransform:'none'}">
+                <Image [row]="((i-(i%3))/3)" *ngFor="let image of place.images;let i=index"
+                    [col]="i%3" class="full_image" [height]="photosHeight"
+                    [width]="photosHeight" [src]="image.thumbnail"></Image>
+            </GridLayout>
+        </TabView>
+        <!-- uncomment to add reviews
+		<StackLayout row="2" col="0" colSpan="2" *ngIf="blog.isCommentsLoaded&&blog.comments.length>0" class="commentsList">
+			<GridLayout *ngFor="let comment of blog.comments" [ngClass]="{'childComment':comment.parent , 'parentComment':!comment.parent}"
+			 columns="auto, *" rows="auto,auto,auto">
+				<Image row="0" rowSpan="3" col="0" verticalAlignment="top" class="aurthor_image" [src]="'~/shared/imgs/user-48.png'"></Image>
+				<NSImg row="0" rowSpan="3" col="0" verticalAlignment="top" roundAsCircle="true" actualImageScaleType="centerCrop"
+				 class="aurthor_image" [src]="comment.author_avatar_urls['48']"></NSImg>
+				<Label class="aurthor_title" verticalAlignment="center" row="0" col="1" [text]="comment.author_name"></Label>
+				<Label verticalAlignment="center" row="1" col="1" [text]="comment.displayDate"></Label>
+				<WebView *ngIf="comment.parent" row="2" col="1" [src]="'<head><style>img{max-width:100%;}body{background-color:#f4f4f4;color:rgba(0,0,0,0.5);}</style><body>'+comment.content.rendered+'</body>'"></WebView>
+				<WebView *ngIf="!comment.parent" row="2" col="1" [src]="'<head><style>img{max-width:100%;}body{background-color:#cccccc;color:rgba(0,0,0,0.7);}</style><body>'+comment.content.rendered+'</body>'"></WebView>
+			</GridLayout>
+		</StackLayout> -->
+
+    </GridLayout>
+</ScrollView>
+<!-- </GridLayout> -->
