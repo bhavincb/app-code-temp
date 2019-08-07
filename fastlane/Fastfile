@@ -5,7 +5,7 @@ platform :android do
     #when using above plugin decrypt it from jks to p12
     #keytool.exe -importkeystore -srckeystore truststore.jks  -destkeystore truststore1.p12 -srcstoretype JKS -deststoretype PKCS12
     #output_directory = android_keystore(generate_cordova_release_signing: false)
-
+    output_directory = "../.android_signing"
 
     sh ("cd .. && mkdir .android_signing")
     keytool_parts = [
