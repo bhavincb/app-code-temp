@@ -18,7 +18,7 @@ platform :android do
             ",S=#{ENV['ANDROID_KEYSTORE_STATE_PROVINCE']}",
             ",C=#{ENV['ANDROID_KEYSTORE_COUNTRY']}\"",
           ]
-    # sh "(cd .. && #{keytool_parts.join(" ")})"
+    sh "(cd .. && #{keytool_parts.join(" ")})"
     
     UI.user_error! "`android_keystore` directory needs to exists" unless File.directory?(output_directory)
     
