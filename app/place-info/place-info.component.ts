@@ -43,7 +43,7 @@ export class PlaceInfoComponent implements OnInit {
         this.place = this.data.placeInfo.place;
         this.title = this.data.placeInfo.title;
     }
-    onScroll(event: ScrollEventData, scrollView: ScrollView, topView: View) {
+    onScroll(event: ScrollEventData, scrollView: ScrollView, topView: View=null) {
         // If the header content is still visiible
         // console.log(scrollView.verticalOffset);
         if (scrollView.verticalOffset < 200) {

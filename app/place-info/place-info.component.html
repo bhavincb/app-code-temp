@@ -9,15 +9,15 @@
     </StackLayout>
 </ActionBar>
 <!-- <GridLayout class="page"> -->
-<ScrollView #scrollView (scroll)="onScroll($event, scrollView, topView)">
+<ScrollView #scrollView (scroll)="onScroll($event, scrollView)">
     <GridLayout rows="auto,*,auto">
         <Image row="0" borderRadius="10" col="0" colSpan="2" height="200"
             class="full_image" [src]="'~/shared/imgs/default-thumbnail.jpg'"></Image>
-        <Image *ngIf="isIOS" row="0" #topView borderRadius="10" col="0"
-            colSpan="2" height="200" class="full_image" [src]="place.featured_image.thumbnail"></Image>
-        <NSImg *ngIf="!isIOS" #topView roundedCornerRadius="10"
+        <!--<Image *ngIf="isIOS" row="0" #topView borderRadius="10" col="0"
+            colSpan="2" height="200" class="full_image" [src]="place.featured_image.thumbnail"></Image>-->
+        <!--<NSImg *ngIf="!isIOS" #topView roundedCornerRadius="10"
             roundTopLeft="true" roundTopRight="true" row="0" width="100%"
-            height="200" col="0" colSpan="2" class="full_image" [src]="place.featured_image.thumbnail"></NSImg>
+            height="200" col="0" colSpan="2" class="full_image" [src]="place.featured_image.thumbnail"></NSImg>-->
         <TabView row="1" [height]="screenHeight-80">
             <GridLayout rows="auto,auto,auto,auto" columns="auto,*" padding="10"
                 *tabItem="{title: 'Profile',textTransform:'none'}">
