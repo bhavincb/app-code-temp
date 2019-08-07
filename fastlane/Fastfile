@@ -1,8 +1,13 @@
 platform :android do
   lane :build do
+    #use without cloud build because it required p12 format
     # fastlane plugin added by running `fastlane add_plugin android_keystore`
-    output_directory = android_keystore(generate_cordova_release_signing: false)
-    #sh ("cd .. && mkdir .android_signing")
+    #when using above plugin decrypt it from jks to p12
+    #keytool.exe -importkeystore -srckeystore truststore.jks  -destkeystore truststore1.p12 -srcstoretype JKS -deststoretype PKCS12
+    #output_directory = android_keystore(generate_cordova_release_signing: false)
+
+
+    sh ("cd .. && mkdir .android_signing")
     keytool_parts = [
             "keytool -genkey -v",
             "-keystore .android_signing/#{ENV['ANDROID_KEYSTORE_KEYSTORE_NAME']}",
@@ -45,7 +50,7 @@ platform :android do
     UI.success "Successfully built APK: #{apk_path}"
 
     #upload to playstore
-    sh "(cd .. && fastlane supply --apk #{apk_path} --track rollout --rollout 0.5)"
+    #sh "(cd .. && fastlane supply --apk #{apk_path} --track rollout --rollout 0.5)"
     UI.success "Successfully uploaded APK"
   end
 end
@@ -101,6 +106,6 @@ platform :ios do
     ipa_path = Dir.glob(File.join(Dir.pwd, "../.cloud/ios/device/*.ipa")).first
     ipa_path = File.absolute_path ipa_path
     UI.success "Successfully built IPA: #{ipa_path}"
-    deliver(ipa:ipa_path,submit_for_review:true,automatic_release: true,force:true)
+    #deliver(ipa:ipa_path,submit_for_review:true,automatic_release: true,force:true)
   end
 end
