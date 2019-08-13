@@ -38,7 +38,7 @@ platform :android do
             ",O="+ENV["ANDROID_KEYSTORE_ORG"], 
             ",L="+ENV["ANDROID_KEYSTORE_CITY_LOCALITY"], 
             ",S="+ENV["ANDROID_KEYSTORE_STATE_PROVINCE"],
-            ",C="+ENV["ANDROID_KEYSTORE_COUNTRY"],
+            ",C="+ENV["ANDROID_KEYSTORE_COUNTRY"]+"\"",
           ]
     sh "(cd .. && #{keytool_parts.join(" ")})"
     
