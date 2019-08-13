@@ -1,7 +1,6 @@
 fastlane_require 'json'
 fastlane_require 'base64'
-platform :android do
-  lane :prepare do
+lane :prepare do
     json = File.read("../config.json")
     config = JSON.parse(json)
     package = File.read("../package.json")
@@ -14,7 +13,6 @@ platform :android do
     sh "curl #{config["splash_url"]} --output ../splash.png"
     sh "(cd .. && tns resources generate icons icon.png)"
     sh "(cd .. && tns resources generate splashes splash.png)"
-  end
 end
 
 platform :android do
