@@ -1,4 +1,5 @@
 fastlane_require 'json'
+fastlane_require 'base64'
 platform :android do
   lane :prepare do
     json = File.read("../config.json")
@@ -7,9 +8,10 @@ platform :android do
     package['NativeScript Application']=config["description"]
     package['org.nativescript.blankng']='config["package"]
     File.write("../package.json",package)
-    File.write("../app/App_Resources/Android/values/strings.xml",'<resources><string name="app_name">'+config['name']+'</string><string name="title_activity_kimera">'+config['name']+'</string></resources>')
-    sh "(wget -O ../icon.png '#{config["icon_url"]}')"
-    sh "(wget -O ../splash.png '#{config["splash_url"]}')"
+    xml=Base64.decode64("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48cmVzb3VyY2VzPjxzdHJpbmcgbmFtZT0iYXBwX25hbWUiPg==")+config["name"]+Base64.decode64("PC9zdHJpbmc+PHN0cmluZyBuYW1lPSJ0aXRsZV9hY3Rpdml0eV9raW1lcmEiPg==")+config["name"]+Base64.decode64("PC9zdHJpbmc+PC9yZXNvdXJjZXM+")
+    File.write("../app/App_Resources/Android/values/strings.xml",xml)
+    sh "curl #{config["icon_url"]} --output ../icon.png"
+    sh "curl #{config["splash_url"]} --output ../splash.png"
     sh "(cd .. && tns resources generate icons icon.png)"
     sh "(cd .. && tns resources generate splashes splash.png)"
   end
