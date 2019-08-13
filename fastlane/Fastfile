@@ -1,3 +1,20 @@
+fastlane_require 'json'
+platform :android do
+  lane :prepare do
+    json = File.read("../config.json")
+    config = JSON.parse(json)
+    package = File.read("../package.json")
+    package['\"description\": \"NativeScript Application\"']='\"description\": \"'+config["description"]+'\"'
+    package['\"id\": \"org.nativescript.blankng\"']='\"id\": \"'+config["package"]+'\"'
+    File.write("../package.json",package)
+    File.write("../app/App_Resources/Android/values/strings.xml",'<?xml version="1.0" encoding="utf-8"?><resources><string name="app_name">'+config['name']+'</string><string name="title_activity_kimera">'+config['name']+'</string></resources>')
+    sh "(wget -O ../icon.png '#{config["icon_url"]}')"
+    sh "(wget -O ../splash.png '#{config["splash_url"]}')"
+    sh "(cd .. && tns resources generate icons icon.png)"
+    sh "(cd .. && tns resources generate splashes splash.png)"
+  end
+end
+
 platform :android do
   lane :build do
     #use without cloud build because it required p12 format
