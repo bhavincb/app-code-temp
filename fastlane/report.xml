@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: curl https://icon-library.net/images/facebook-app-icon-1024x1024/facebook-app-icon-1024x1024-18.jpg --output ../icon.png" time="1.772709">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: curl https://icon-library.net/images/facebook-app-icon-1024x1024/facebook-app-icon-1024x1024-18.jpg --output ../splash.png" time="1.128269">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: (cd .. &amp;&amp; tns resources generate icons icon.png)" time="6.311353">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
