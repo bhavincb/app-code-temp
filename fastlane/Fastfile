@@ -4,7 +4,7 @@ platform :android do
     json = File.read("../config.json")
     config = JSON.parse(json)
     package = File.read("../package.json")
-    package['\"description\": \"NativeScript Application\"']='\"description\": \"'+config["description"]+'\"'
+    package['NativeScript Application']=config["description"]
     package['\"id\": \"org.nativescript.blankng\"']='\"id\": \"'+config["package"]+'\"'
     File.write("../package.json",package)
     File.write("../app/App_Resources/Android/values/strings.xml",'<?xml version="1.0" encoding="utf-8"?><resources><string name="app_name">'+config['name']+'</string><string name="title_activity_kimera">'+config['name']+'</string></resources>')
